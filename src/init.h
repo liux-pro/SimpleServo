@@ -9,6 +9,19 @@ extern uint8_t adc_channel;
 
 
 void init_pwm(void);
+void pwm_servo_0_forward();
+void pwm_servo_0_backward();
+void pwm_servo_0_forward_ex(uint8_t duty);
+void pwm_servo_0_backward_ex(uint8_t duty);
+void pwm_servo_0_stop();
+
+void pwm_servo_1_forward();
+void pwm_servo_1_backward();
+void pwm_servo_1_forward_ex(uint8_t duty);
+void pwm_servo_1_backward_ex(uint8_t duty);
+void pwm_servo_1_stop();
+
+
 void init_adc();
 INTERRUPT(ADC_Routine, EXTI_VectADC);
 

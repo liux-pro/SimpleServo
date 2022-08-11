@@ -47,12 +47,13 @@ void init_pwm(void)
      *      Fpwm = SYSCLK / (PWMx_PSCR + 1) / PWMx_ARR / 2
      */
     // Set highest PWM clock
-    PWMA_SetPrescaler(1);
-    PWMB_SetPrescaler(1);
+    // 这里是side alignment
+    PWMA_SetPrescaler(179);
+    PWMB_SetPrescaler(179);
 
     // PWM width = Period + 1 (side alignment), or AutoReloadPeriod * 2 (center alignment)
-    PWMA_SetPeriod(0xFFF);
-    PWMB_SetPeriod(0xFFF);
+    PWMA_SetPeriod(99);
+    PWMB_SetPeriod(99);
 
     // Counter direction, down:from [PWMA_ARRH,PWMA_ARRL] to 0
     PWMA_SetCounterDirection(PWM_CounterDirection_Down);
@@ -78,15 +79,73 @@ void init_pwm(void)
     PWMA_SetCounterState(HAL_State_ON);
     PWMB_SetCounterState(HAL_State_ON);
 
-    PWMA_PWM2_SetCaptureCompareValue(0xfff + 1);
-    PWMA_PWM3_SetCaptureCompareValue(0xfff + 1);
-    PWMA_PWM4_SetCaptureCompareValue(0xfff + 1);
-    PWMB_PWM1_SetCaptureCompareValue(0xfff + 1);
+    PWMA_PWM2_SetCaptureCompareValue(100);
+    PWMA_PWM3_SetCaptureCompareValue(100);
+    PWMA_PWM4_SetCaptureCompareValue(100);
+    PWMB_PWM1_SetCaptureCompareValue(100);
+}
+
+
+
+void pwm_servo_0_forward()
+{
+    PWMA_PWM2_SetCaptureCompareValue(100);
+    PWMA_PWM3_SetCaptureCompareValue(0);
+}
+void pwm_servo_0_backward()
+{
+    PWMA_PWM2_SetCaptureCompareValue(0);
+    PWMA_PWM3_SetCaptureCompareValue(100);
+}
+void pwm_servo_0_forward_ex(uint8_t duty)
+{
+    PWMA_PWM2_SetCaptureCompareValue(duty);
+    PWMA_PWM3_SetCaptureCompareValue(0);
+}
+void pwm_servo_0_backward_ex(uint8_t duty)
+{
+    PWMA_PWM2_SetCaptureCompareValue(0);
+    PWMA_PWM3_SetCaptureCompareValue(duty);
+}
+
+void pwm_servo_0_stop()
+{
+    PWMA_PWM2_SetCaptureCompareValue(100);
+    PWMA_PWM3_SetCaptureCompareValue(100);
+}
+void pwm_servo_1_forward()
+{
+    PWMA_PWM4_SetCaptureCompareValue(100);
+    PWMB_PWM1_SetCaptureCompareValue(0);
+}
+void pwm_servo_1_backward()
+{
+    PWMA_PWM4_SetCaptureCompareValue(0);
+    PWMB_PWM1_SetCaptureCompareValue(100);
+}
+void pwm_servo_1_forward_ex(uint8_t duty)
+{
+    PWMA_PWM4_SetCaptureCompareValue(duty);
+    PWMB_PWM1_SetCaptureCompareValue(0);
+}
+void pwm_servo_1_backward_ex(uint8_t duty)
+{
+    PWMA_PWM4_SetCaptureCompareValue(0);
+    PWMB_PWM1_SetCaptureCompareValue(duty);
+}
+void pwm_servo_1_stop()
+{
+    PWMA_PWM4_SetCaptureCompareValue(100);
+    PWMB_PWM1_SetCaptureCompareValue(100);
 }
 
 volatile uint16_t battery = 123;
 uint16_t angle0;
 uint16_t angle1;
+uint16_t angle0_target=180;
+uint16_t angle1_target=180;
+uint16_t angle0_duty=0x7fc0;
+uint16_t angle1_duty=0x7fc0;
 uint8_t adc_channel;
 
 static void set_adc_channel(uint8_t a)
@@ -107,11 +166,11 @@ INTERRUPT(ADC_Routine, EXTI_VectADC)
     switch (adc_channel)
     {
     case 0:
-        angle0 = res;
+        angle1 = (float)res/ 0xffff * 360;
         set_adc_channel(1);
         break;
     case 1:
-        angle1 = res;
+        angle0 = (float)res/ 0xffff * 360;
         set_adc_channel(14);
         break;
     case 14:
@@ -155,12 +214,12 @@ void init_led()
 
 void led_red_on()
 {
-     P35 = SET;  
+    P35 = SET;
 }
 
 void led_red_off()
 {
-     P35 = RESET;
+    P35 = RESET;
 }
 
 void led_blue_on()
@@ -171,5 +230,4 @@ void led_blue_on()
 void led_blue_off()
 {
     P34 = RESET;
-
 }
