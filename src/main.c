@@ -83,7 +83,7 @@ int main()
                 {
                     pwm_servo_0_backward_ex(d + 50);
                 }
-                UART1_TxString("   backward\r\n");
+                // UART1_TxString("   backward\r\n");
             }
             else
             {
@@ -96,21 +96,21 @@ int main()
                 {
                     pwm_servo_0_forward_ex(d + 50);
                 }
-                UART1_TxString("   forward\r\n");
+                // UART1_TxString("   forward\r\n");
             }
         }
         else
         {
             pwm_servo_0_stop();
-            UART1_TxString("   stop\r\n");
+            // UART1_TxString("   stop\r\n");
         }
         if ((angle0 > 270) || (angle0 < 90))
         {
             pwm_servo_0_stop();
-            UART1_TxString("angle0   shutdown\r\n");
-            UART1_TxHex(angle0 >> 8);
-            UART1_TxHex(angle0 & 0xFF);
-            UART1_TxString("   angle0\r\n");
+            // UART1_TxString("angle0   shutdown\r\n");
+            // UART1_TxHex(angle0 >> 8);
+            // UART1_TxHex(angle0 & 0xFF);
+            // UART1_TxString("   angle0\r\n");
             // while (1)
             // {
             //     /* code */
@@ -130,7 +130,7 @@ int main()
                 {
                     pwm_servo_1_backward_ex(d + 50);
                 }
-                UART1_TxString("   backward\r\n");
+                // UART1_TxString("   backward\r\n");
             }
             else
             {
@@ -143,21 +143,21 @@ int main()
                 {
                     pwm_servo_1_forward_ex(d + 50);
                 }
-                UART1_TxString("   forward\r\n");
+                // UART1_TxString("   forward\r\n");
             }
         }
         else
         {
             pwm_servo_1_stop();
-            UART1_TxString("   stop\r\n");
+            // UART1_TxString("   stop\r\n");
         }
         if ((angle1 > 270) || (angle1 < 90))
         {
             pwm_servo_1_stop();
-            UART1_TxString("angle1   shutdown\r\n");
-            UART1_TxHex(angle1 >> 8);
-            UART1_TxHex(angle1 & 0xFF);
-            UART1_TxString("   angle1\r\n");
+            // UART1_TxString("angle1   shutdown\r\n");
+            // UART1_TxHex(angle1 >> 8);
+            // UART1_TxHex(angle1 & 0xFF);
+            // UART1_TxString("   angle1\r\n");
             // while (1)
             // {
             //     /* code */
