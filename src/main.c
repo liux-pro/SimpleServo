@@ -24,10 +24,10 @@ int main()
     init_pwm();
 
     UART1_Config8bitUart(UART1_BaudSource_Timer2, HAL_State_ON, 115200);
-    UART1_TxString("Legend-Techqqq\r\n");
+    UART1_TxString("Legend Tech Simple Servo\r\n");
 
-    GPIO_P1_SetMode(GPIO_Pin_3, GPIO_Mode_Input_HIP);  //r3
-    GPIO_P1_SetMode(GPIO_Pin_5, GPIO_Mode_Input_HIP); //r4
+    GPIO_P1_SetMode(GPIO_Pin_3, GPIO_Mode_Input_HIP); // r3
+    GPIO_P1_SetMode(GPIO_Pin_5, GPIO_Mode_Input_HIP); // r4
 
     while (1)
     {

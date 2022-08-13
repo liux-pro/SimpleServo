@@ -139,13 +139,13 @@ void pwm_servo_1_stop()
     PWMB_PWM1_SetCaptureCompareValue(100);
 }
 
-volatile uint16_t battery = 123;
+volatile uint16_t battery = 0;
 uint16_t angle0;
 uint16_t angle1;
 uint16_t angle0_target=180;
 uint16_t angle1_target=180;
-uint16_t angle0_duty=0x7fc0;
-uint16_t angle1_duty=0x7fc0;
+uint16_t angle0_duty=0;
+uint16_t angle1_duty=0;
 uint8_t adc_channel;
 
 static void set_adc_channel(uint8_t a)
@@ -155,7 +155,7 @@ static void set_adc_channel(uint8_t a)
 }
 
 // sdcc编译器，如果写中断函数，函数可以放在别的c文件中，但是，在main函数所在的c文件中，必须这个中断函数的函数声明。
-// 声明写在头文件里，在main.c里引用也行。
+// 声明写在头文件里，在main.c里引用这个头文件也行。
 // keil貌似不存在这个问题
 INTERRUPT(ADC_Routine, EXTI_VectADC)
 {
