@@ -208,8 +208,8 @@ void init_adc()
 
 void init_led()
 {
-    GPIO_P3_SetMode(GPIO_Pin_5, GPIO_Mode_Output_PP);
-    GPIO_P3_SetMode(GPIO_Pin_4, GPIO_Mode_Output_PP);
+    GPIO_P3_SetMode(GPIO_Pin_5, GPIO_Mode_Output_PP); //led1
+    GPIO_P3_SetMode(GPIO_Pin_4, GPIO_Mode_Output_PP); //led2
 }
 
 void led_red_on()

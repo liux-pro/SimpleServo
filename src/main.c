@@ -26,6 +26,30 @@ int main()
     UART1_Config8bitUart(UART1_BaudSource_Timer2, HAL_State_ON, 115200);
     UART1_TxString("Legend-Techqqq\r\n");
 
+    GPIO_P1_SetMode(GPIO_Pin_3, GPIO_Mode_Input_HIP);  //r3
+    GPIO_P1_SetMode(GPIO_Pin_5, GPIO_Mode_Input_HIP); //r4
+
+    while (1)
+    {
+        if (P13)
+        {
+            led_blue_on();
+        }
+        else
+        {
+            led_blue_off();
+        }
+
+        if (P15)
+        {
+            led_red_on();
+        }
+        else
+        {
+            led_red_off();
+        }
+    }
+
     while (1)
     {
         // uint16_t aaa = 0;
