@@ -85,8 +85,6 @@ void init_pwm(void)
     PWMB_PWM1_SetCaptureCompareValue(100);
 }
 
-
-
 void pwm_servo_0_forward()
 {
     PWMA_PWM2_SetCaptureCompareValue(100);
@@ -142,10 +140,10 @@ void pwm_servo_1_stop()
 volatile uint16_t battery = 0;
 uint16_t angle0;
 uint16_t angle1;
-uint16_t angle0_target=180;
-uint16_t angle1_target=180;
-uint16_t angle0_duty=0;
-uint16_t angle1_duty=0;
+volatile uint16_t angle0_target = 180;
+volatile uint16_t angle1_target = 180;
+uint16_t angle0_duty = 0;
+uint16_t angle1_duty = 0;
 uint8_t adc_channel;
 
 static void set_adc_channel(uint8_t a)
@@ -166,11 +164,11 @@ INTERRUPT(ADC_Routine, EXTI_VectADC)
     switch (adc_channel)
     {
     case 0:
-        angle1 = (float)res/ 0xffff * 360;
+        angle1 = (float)res / 0xffff * 360;
         set_adc_channel(1);
         break;
     case 1:
-        angle0 = (float)res/ 0xffff * 360;
+        angle0 = (float)res / 0xffff * 360;
         set_adc_channel(14);
         break;
     case 14:
@@ -208,8 +206,8 @@ void init_adc()
 
 void init_led()
 {
-    GPIO_P3_SetMode(GPIO_Pin_5, GPIO_Mode_Output_PP); //led1
-    GPIO_P3_SetMode(GPIO_Pin_4, GPIO_Mode_Output_PP); //led2
+    GPIO_P3_SetMode(GPIO_Pin_5, GPIO_Mode_Output_PP); // led1
+    GPIO_P3_SetMode(GPIO_Pin_4, GPIO_Mode_Output_PP); // led2
 }
 
 void led_red_on()

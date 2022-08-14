@@ -1,6 +1,19 @@
 {
     "C_Cpp.errorSquiggles": "Disabled",
     "files.associations": {
-        "fw_hal.h": "c"
+        "fw_hal.h": "c",
+        "algorithm": "c",
+        "bit": "c",
+        "compare": "c",
+        "concepts": "c",
+        "exception": "c",
+        "limits": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c",
+        "xmemory": "c",
+        "xstddef": "c",
+        "xtr1common": "c",
+        "xutility": "c"
     }
 }
